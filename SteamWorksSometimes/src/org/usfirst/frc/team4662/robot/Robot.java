@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-//		RobotMap.init();
+		RobotMap.init();
 		driveSystem = new DriveSystem();
 		oi = new OI();
 		chooser.addDefault("Default Auto", new ExampleCommand());

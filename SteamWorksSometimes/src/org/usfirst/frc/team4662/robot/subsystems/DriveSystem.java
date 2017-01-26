@@ -7,6 +7,7 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -22,26 +23,38 @@ public class DriveSystem extends Subsystem {
 	private CANTalon ControllerRight1;
 	private CANTalon ControllerRight2;
 	
-	private RobotDrive steamDrive;
 	
-	public void DriveSystem(){
+	RobotDrive steamDrive = new RobotDrive(ControllerLeft1, ControllerRight1); //makes the drive
+	 
+	public DriveSystem(){
+		
 		ControllerLeft1 = new CANTalon(RobotMap.leftMotor1);
 		ControllerLeft2 = new CANTalon(RobotMap.leftMotor2);
+		//ControllerLeft1.setInverted(true);
 		ControllerRight1 = new CANTalon(RobotMap.rightMotor1);
 		ControllerRight2 = new CANTalon(RobotMap.rightMotor2);
 		
 		ControllerLeft2.changeControlMode(CANTalon.TalonControlMode.Follower); //makes the controllers followers
 		ControllerRight2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		
-		ControllerLeft2.set(ControllerLeft1.getDeviceID()); //telles them who to follow
+		ControllerLeft2.set(ControllerLeft1.getDeviceID()); //tells them who to follow
 		ControllerRight2.set(ControllerRight1.getDeviceID());
 		
-		steamDrive = new RobotDrive(ControllerLeft1, ControllerRight1); //makes the drive
+		ControllerLeft1.enable();
+		ControllerRight1.enable();
+	
+		
+		
+		SmartDashboard.putString("DriveSytem", "ConstructorMethod");
+		
 		
 	}
 	
-	public void ArcadeDrive(double stickX, double stickY){ 
+	public void ArcadeDrive(double stickX, double stickY){
+		
 		steamDrive.arcadeDrive(stickX, stickY);		
+		//ControllerLeft1.set(stickY);
+		logDashboard(stickY, stickX);
 	}
 	
     public void initDefaultCommand() {
@@ -53,6 +66,16 @@ public class DriveSystem extends Subsystem {
    	    	
     }
     
+    public void logDashboard (double Y, double X){
+    	
+    	SmartDashboard.putNumber("Left1Temp", ControllerLeft1.getTemperature());
+    	SmartDashboard.putNumber("Left1Amps", ControllerLeft1.getOutputCurrent());
+    	
+    	SmartDashboard.putNumber("Right1Temp", ControllerRight1.getTemperature());
+    	SmartDashboard.putNumber("Right1Amps", ControllerRight1.getOutputCurrent());
+    			
+    	
+    }
    
     
 }
