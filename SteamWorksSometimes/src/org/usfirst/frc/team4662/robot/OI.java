@@ -2,8 +2,9 @@ package org.usfirst.frc.team4662.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team4662.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4662.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -39,4 +40,11 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public Joystick driveStick = new Joystick(0);
+	public JoystickButton ToggleFront = new JoystickButton(driveStick,11); 
+	
+	public OI()  {
+		
+		ToggleFront.whenPressed(new SwitchFront());	
+	}
+	
 }
