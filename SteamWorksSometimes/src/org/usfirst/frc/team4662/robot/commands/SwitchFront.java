@@ -20,7 +20,6 @@ public class SwitchFront extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	double throttle = 2 / (Robot.oi.driveStick.getThrottle() + 3.0);
     	Robot.driveSystem.ToggleEnds();
     }
 
